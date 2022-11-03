@@ -1,4 +1,4 @@
-package ru.school21.avaj.launcher.exceptions;
+package ru.school21.avaj.launcher.simulator.exceptions;
 
 public class CountSimulationsError extends RuntimeException{
 
