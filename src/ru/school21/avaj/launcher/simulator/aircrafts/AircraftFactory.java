@@ -1,9 +1,9 @@
 package ru.school21.avaj.launcher.simulator.aircrafts;
 
-import ru.school21.avaj.launcher.exceptions.ErrorTypeAircraft;
-import ru.school21.avaj.launcher.exceptions.FileError;
+import ru.school21.avaj.launcher.simulator.exceptions.ErrorTypeAircraft;
+import ru.school21.avaj.launcher.simulator.exceptions.FileError;
 
-public class AircraftFactory {
+public abstract class AircraftFactory {
     private static final String BALLOON = "Balloon";
     private static final String JETPLANE = "JetPlane";
     private static final String HELICOPTER = "Helicopter";
