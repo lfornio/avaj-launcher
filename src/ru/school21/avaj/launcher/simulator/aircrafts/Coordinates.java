@@ -1,5 +1,7 @@
 package ru.school21.avaj.launcher.simulator.aircrafts;
 
+import java.util.Objects;
+
 public class Coordinates {
     private int longitude; //долгота
     private int latitude;  //широта
@@ -21,6 +23,31 @@ public class Coordinates {
 
     public int getHeight() {
         return height;
+    }
+
+    public void setLongitude(int longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(int latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinates that = (Coordinates) o;
+        return longitude == that.longitude && latitude == that.latitude && height == that.height;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(longitude, latitude, height);
     }
 
     @Override
