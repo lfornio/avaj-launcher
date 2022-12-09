@@ -6,7 +6,7 @@ import static ru.school21.avaj.launcher.simulator.weather.Weather.*;
 
 public class WeatherProvider {
     private static WeatherProvider weatherProvider;
-    private String[] weather;
+    private static String[] weather;
 
     private WeatherProvider() {
 
@@ -20,8 +20,8 @@ public class WeatherProvider {
     }
 
     public String getCurrentWeather(Coordinates coordinates) {
-        int sum = coordinates.getLongitude() + coordinates.getLatitude() + coordinates.getHeight();
-        int res = sum % 4;
+        long sum = ((long) coordinates.getLongitude() + (long) coordinates.getLatitude() + (long) coordinates.getHeight());
+        int res = (int) (sum % 4);
         switch (res) {
             case 0:
                 return RAIN.getValue();

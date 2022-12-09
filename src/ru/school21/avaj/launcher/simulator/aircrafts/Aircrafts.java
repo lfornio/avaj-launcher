@@ -1,23 +1,23 @@
 package ru.school21.avaj.launcher.simulator.aircrafts;
 
 public enum Aircrafts {
-    BALLOON("BALLOON"),
-    JETPLANE("JETPLANE"),
-    HELICOPTER("HELICOPTER");
+    BALLOON("Balloon"),
+    JETPLANE("JetPlane"),
+    HELICOPTER("Helicopter");
 
-    private String description;
+    private String value;
 
-    Aircrafts(String description) {
-        this.description = description;
+    Aircrafts(String value) {
+        this.value = value;
     }
 
-    public String getDescription() {
-        return description;
+    public String getValue() {
+        return value;
     }
 
     public static Aircrafts getFromString(String str) {
-        for(Aircrafts air : Aircrafts.values()) {
-            if(air.description.equalsIgnoreCase(str)){
+        for (Aircrafts air : Aircrafts.values()) {
+            if (air.value.equalsIgnoreCase(str)) {
                 return air;
             }
         }
