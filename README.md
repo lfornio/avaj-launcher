@@ -11,9 +11,10 @@
 Летательный аппарат не может подниматься на высоту > 100. Если высота летательного аппарата становится <= 0, то аппарат приземляется.
 
 **Запустить программу:**
-1) find * -name "*.java" > sources.txt
-2) javac @sources.txt
-3) java ru.school21.avaj.launcher.simulator.Simulator scenario.txt
+1) cd src
+2) find * -name "*.java" > sources.txt
+3) javac @sources.txt
+4) java ru.school21.avaj.launcher.simulator.Simulator ../scenario.txt
 
 Результатом работы программы будет файл simulation.txt
 
