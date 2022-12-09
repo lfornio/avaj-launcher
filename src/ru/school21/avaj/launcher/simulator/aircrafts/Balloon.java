@@ -2,13 +2,12 @@ package ru.school21.avaj.launcher.simulator.aircrafts;
 
 import ru.school21.avaj.launcher.simulator.weather.Weather;
 import ru.school21.avaj.launcher.simulator.WeatherTower;
+import static ru.school21.avaj.launcher.simulator.aircrafts.Aircrafts.BALLOON;
 
-import static ru.school21.avaj.launcher.simulator.aircrafts.Aircrafts.HELICOPTER;
-
-public class Helicopter extends Aircraft implements Flyable {
+public class Balloon extends Aircraft implements Flyable {
     private WeatherTower weatherTower;
 
-    Helicopter(String name, Coordinates coordinates) {
+    Balloon(String name, Coordinates coordinates) {
         super(name, coordinates);
     }
 
@@ -20,21 +19,21 @@ public class Helicopter extends Aircraft implements Flyable {
         long latitude = coordinates.getLatitude();
         int height = coordinates.getHeight();
 
-
         switch (Weather.valueOf(weather)) {
             case RAIN:
-                longitude += 5;
+                height -= 5;
                 break;
             case FOG:
-                longitude += 1;
+                height -= 3;
                 break;
             case SUN:
-                height += 2;
-                longitude += 10;
+                height += 4;
+                longitude += 2;
                 break;
             case SNOW:
-                height -= 12;
+                height -= 15;
                 break;
+            default:
         }
 
         if (height > 100) {
@@ -49,12 +48,12 @@ public class Helicopter extends Aircraft implements Flyable {
 
         Coordinates newCoordinates = new Coordinates((int) longitude, (int) latitude, height);
         coordinates = newCoordinates;
+        logger.write(BALLOON.getValue() + "#" + name + "(" + id + "): " + Weather.valueOf(weather).getMessage());
 
-        logger.write(HELICOPTER.getValue() + "#" + name + "(" + id + "): " + Weather.valueOf(weather).getMessage());
 
         if (coordinates.getHeight() <= 0) {
-            logger.write(HELICOPTER.getValue() + "#" + name + "(" + id + ") landing.");
-            logger.write("Tower says: " + HELICOPTER.getValue() + "#" + name + "(" + id + ")" + " unregistered to weather tower.");
+            logger.write(BALLOON.getValue() + "#" + name + "(" + id + ") landing.");
+            logger.write("Tower says: " + BALLOON.getValue() + "#" + name + "(" + id + ")" + " unregistered to weather tower.");
             weatherTower.unregister(this);
         }
     }
@@ -63,6 +62,7 @@ public class Helicopter extends Aircraft implements Flyable {
     public void registerTower(WeatherTower weatherTower) {
         this.weatherTower = weatherTower;
         weatherTower.register(this);
-        logger.write("Tower says: " + HELICOPTER.getValue() + "#" + name + "(" + id + ")" + " registered to weather tower.");
+        logger.write("Tower says: " + BALLOON.getValue() + "#" + name + "(" + id + ")" + " registered to weather tower.");
+
     }
 }

@@ -1,10 +1,16 @@
 package ru.school21.avaj.launcher.simulator.aircrafts;
 
+import ru.school21.avaj.launcher.simulator.Logger;
+
+import static ru.school21.avaj.launcher.simulator.Logger.getLogger;
+
 public abstract class Aircraft {
     protected Long id;
     protected String name;
     protected Coordinates coordinates;
     private static Long idCounter;
+    protected Logger logger = getLogger();
+
 
     protected Aircraft(String name, Coordinates coordinates) {
         this.name = name;
@@ -17,17 +23,5 @@ public abstract class Aircraft {
             idCounter = 0L;
         }
         return ++idCounter;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
     }
 }

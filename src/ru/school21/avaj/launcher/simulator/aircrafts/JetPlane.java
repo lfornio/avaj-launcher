@@ -3,6 +3,8 @@ package ru.school21.avaj.launcher.simulator.aircrafts;
 import ru.school21.avaj.launcher.simulator.weather.Weather;
 import ru.school21.avaj.launcher.simulator.WeatherTower;
 
+import static ru.school21.avaj.launcher.simulator.aircrafts.Aircrafts.JETPLANE;
+
 public class JetPlane extends Aircraft implements Flyable {
     private WeatherTower weatherTower;
 
@@ -13,48 +15,54 @@ public class JetPlane extends Aircraft implements Flyable {
     @Override
     public void updateConditions() {
         String weather = weatherTower.getWeather(this.coordinates);
-        System.out.println("Weather = " + weather);
-        System.out.println("1 = " + this);
+
+        long longitude = coordinates.getLongitude();
+        long latitude = coordinates.getLatitude();
+        int height = coordinates.getHeight();
+
         switch (Weather.valueOf(weather)) {
             case RAIN:
-                coordinates.setLatitude(coordinates.getLatitude() + 5);
+                latitude += 5;
                 break;
             case FOG:
-                coordinates.setLatitude(coordinates.getLatitude() + 1);
+                latitude += 1;
                 break;
             case SUN:
-                coordinates.setHeight(coordinates.getHeight() + 2);
-                coordinates.setLatitude(coordinates.getLatitude() + 10);
+                height += 2;
+                latitude += 10;
                 break;
             case SNOW:
-                coordinates.setHeight(coordinates.getHeight() - 7);
+                height -= 7;
                 break;
-            default:
         }
-        if (coordinates.getHeight() > 100) {
-            coordinates.setHeight(100);
+
+        if (height > 100) {
+            height = 100;
         }
+        if (longitude >= Integer.MAX_VALUE) {
+            longitude = Integer.MAX_VALUE;
+        }
+        if (latitude >= Integer.MAX_VALUE) {
+            latitude = Integer.MAX_VALUE;
+        }
+
+        Coordinates newCoordinates = new Coordinates((int) longitude, (int) latitude, height);
+        coordinates = newCoordinates;
+
+        logger.write(JETPLANE.getValue() + "#" + name + "(" + id + "): " + Weather.valueOf(weather).getMessage());
 
         if (coordinates.getHeight() <= 0) {
+            logger.write(JETPLANE.getValue() + "#" + name + "(" + id + ") landing.");
+            logger.write("Tower says: " + JETPLANE.getValue() + "#" + name + "(" + id + ")" + " unregistered to weather tower.");
             weatherTower.unregister(this);
         }
-
-        System.out.println("2 = " + this);
     }
 
     @Override
     public void registerTower(WeatherTower weatherTower) {
         this.weatherTower = weatherTower;
         weatherTower.register(this);
-    }
+        logger.write("Tower says: " + JETPLANE.getValue() + "#" + name + "(" + id + ")" + " registered to weather tower.");
 
-    @Override
-    public String toString() {
-        return "JetPlane{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", weatherTower=" + weatherTower +
-                '}';
     }
 }
